@@ -5,7 +5,7 @@ GUI操作によって、キャリブレーションフレームの画像から�
 
 [procedure]
 pre: nothing
-post: DLT_3D_reconst.m
+post: triangulateByDLT.m
 
 [pre preparation]
 Save the csv file of the actual coordinates and image coordinates of the calibration frame in 'calibration' folder
@@ -106,55 +106,3 @@ for date_id = 1:length(date_list)
    disp('-----------------------------------------------------------------')
 end
 disp('全体の処理が適切に終了しました')
-
-%% define local function
-%{
-実座標を格納するテーブルの外枠を作成するための関数
-%}
-function [cell_for_world_table] = makeWorldTable(key_point_world_coordination_list)
-    coordinate_list = {'x[mm]', 'y[mm]', 'z[mm]'};
-    key_point_num = size(key_point_world_coordination_list, 1);
-    row_num = 1 + key_point_num;
-    col_num = 4;
-    cell_for_world_table = cell(row_num, col_num);
-
-    % 列方向のフレームワークの作成
-    for coordinate_id = 1:3
-        col_id = 1 + coordinate_id;
-        cell_for_world_table{1, col_id} = coordinate_list{coordinate_id};
-    end
-
-    % 列方向のフレームワークの作成
-    for key_point_id = 1:key_point_num
-        row_id = 1 + key_point_id;
-        cell_for_world_table{row_id, 1} = ['P' num2str(key_point_id)];
-    end
-
-    % 実座標値の代入
-    cell_for_world_table(2:end, 2:end) = num2cell(cell2mat(key_point_world_coordination_list));
-end
-
-%-------------------------------------------------------------------------------
-%{
-画像座標を格納するテーブルの外枠を作成するための関数
-%}
-function [cell_for_image_table] = makeImageTable(cam_num, key_point_num)
-    row_num = 2 + key_point_num;
-    col_num = cam_num * 2 + 1;
-    cell_for_image_table = cell(row_num, col_num);
-
-    % 列方向のフレームワークの作成
-    for camera_id = 1:cam_num
-        start_col_id = 2 * camera_id;
-        cell_for_image_table{1, start_col_id} = ['camera' num2str(camera_id)];
-
-        cell_for_image_table{2, start_col_id} = 'u';
-        cell_for_image_table{2, start_col_id + 1} = 'v';
-    end
-    
-    % 行方向のフレームワークの作成
-    for key_point_id = 1:key_point_num
-        col_id = 2 + key_point_id;
-        cell_for_image_table{col_id, 1} = ['P' num2str(key_point_id)];
-    end
-end

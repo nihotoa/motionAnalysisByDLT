@@ -4,8 +4,8 @@
 原点からの変位をプロットするための関数
 
 [procedure]
-pre: CompairUsdata.m
-post: plot_average_stim_displacement.m
+pre: plotDisplacementByAxes.m
+post: plotAverageDisplacementByStimTrial.m
 
 事前準備:
 > CompairUsdataを先に実行してください
@@ -41,7 +41,7 @@ stim_start_timing_data_path = fullfile(save_folder_path, monkey_name, 'data', 'c
 try
     load(stim_start_timing_data_path,'coordinate_list', 'point_header');
 catch
-    warning([date_combination_folder_name 'が存在しません。先に"CompairUsdata.m”において、同じ日付の組み合わせで処理を実行してください'])
+    warning([date_combination_folder_name 'が存在しません。先に"plotDisplacementByAxes.m”において、同じ日付の組み合わせで処理を実行してください'])
     disp('------------------------------------------処理を終了します------------------------------------------');
     return;
 end

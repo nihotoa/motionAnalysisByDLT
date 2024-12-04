@@ -10,7 +10,7 @@ P_image: [double array], キーポイントの画像座標の記録された配列
 a: [double array], 各カメラのカメラパラメータ。11 * (カメラ数)の配列で、各列ベクトルが各カメラのカメラパラメータに該当
 %}
 
-function a = Get_CamParam(P_world, P_image)
+function a = getCameraParameters(P_world, P_image)
 % key_pointとcamera_numを算出
 [key_point_num, col_num] = size(P_image);
 camera_num = col_num / 2;
