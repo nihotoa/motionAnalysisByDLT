@@ -3,11 +3,11 @@
 [function]
 
 [procedure]
-pre: DLT_3D_reconst.m
-post: US_3D_traject.m
+pre: triangulateByDLT.m
+post: plotTotalDisplacement.m
 
 [事前準備]
-> kDLT_3D_reconst.mを先に実行してください(reconst_3d_coordination.csvが必要)
+> DLT_3D_reconst.mを先に実行してください(reconst_3d_coordination.csvが必要)
 
 [改善点]
 横軸がフレーム数なので、秒に直す(撮影の際のfpsを知ることが必要)

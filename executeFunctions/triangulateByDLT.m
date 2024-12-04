@@ -5,7 +5,7 @@ DLT法を用いて、３次元座標を導出するプログラム
 
 [procedure]
 pre: getCalibrationFrameCoords.m
-post: ComapairUsdata.m
+post: plotDisplacementByAxes.m
 
 [pre preparation]
 Save the csv file of the actual coordinates and image coordinates of the calibration frame in 'calibration' folder
@@ -79,7 +79,7 @@ for date_id =  1: length(date_list)
     camera_num = col_num / 2;
     
     % Estimation camera parameter
-    camera_parameter_list = Get_CamParam(P_world, P_image); %function which generate CamereaParameter
+    camera_parameter_list = getCameraParameters(P_world, P_image); %function which generate CamereaParameter
      
     DLC_csv_fold_path = fullfile(base_dir, 'useDataFold', monkey_name, 'DLC_csv_file', ref_date, stim_location);
     motion_data_files = dirEx(fullfile(DLC_csv_fold_path, '*.csv'));
@@ -134,7 +134,7 @@ for date_id =  1: length(date_list)
         continue;
     end
 
-    worldPos = Get_worldPos(body_parts_num, motion_image_coordinates, camera_parameter_list);
+    worldPos = triangulate(body_parts_num, motion_image_coordinates, camera_parameter_list);
     
     % likelyhoodの低い3次元座標をNaNで置き換える
     for body_parts_id = 1:body_parts_num

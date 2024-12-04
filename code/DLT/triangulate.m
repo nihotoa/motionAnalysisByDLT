@@ -1,4 +1,4 @@
-function X = Get_worldPos(body_parts_num, motion_image_coordinates, CamParam)
+function X = triangulate(body_parts_num, motion_image_coordinates, CamParam)
 a = CamParam;
 frame_num = length(motion_image_coordinates);
 X = zeros([frame_num 3 * body_parts_num]);  

@@ -4,7 +4,7 @@
 read the displacement data for stimulation,  calculate the average value of
 the displacement for each day,  and over lay and plot.
 [procedure]
-pre: US_3D_traject.m
+pre: plotTotalDisplacement.m
 post: nothing
 
 [改善点]
